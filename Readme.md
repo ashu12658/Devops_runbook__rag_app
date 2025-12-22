@@ -1,152 +1,166 @@
-# 🚀 DevOps Runbook RAG Agent
+🚀 DevOps Runbook RAG Agent
 
-A production-focused **Retrieval Augmented Generation (RAG)** application that helps engineers troubleshoot DevOps and infrastructure issues using **internal runbooks (PDFs)**.
+A production-focused Retrieval Augmented Generation (RAG) application that helps engineers troubleshoot DevOps and infrastructure issues using internal runbooks (PDFs).
 
-This system answers **strictly from documented runbooks**, ensuring **zero hallucination**, making it safe for real-world DevOps and SRE workflows.
+The system generates strictly context-grounded answers from runbooks, reducing hallucinations and making it suitable for real-world DevOps and SRE workflows.
 
----
+🔗 Live Demo
 
-## 🧠 Problem Statement
+https://devops-runbook-rag-application-48vs.onrender.com/docs
+
+🧠 Problem Statement
 
 In real DevOps environments:
 
-- Runbooks exist as long PDFs or documents
-- Searching manually during incidents is slow
-- Generic AI chatbots may hallucinate solutions
-- Production systems require accurate, documented answers
+Runbooks exist as long PDFs
 
-This project converts static DevOps runbooks into a **safe, queryable AI troubleshooting assistant**.
+Manual searching during incidents is slow
 
----
+Generic AI tools may guess or hallucinate
 
-## ✅ What This Project Solves
+Production systems require documented, reliable answers
 
-- 🔍 Instant search across DevOps troubleshooting PDFs  
-- 📄 Answers only from approved internal runbooks  
-- 🛑 Prevents hallucinated responses  
-- 🧩 Step-by-step troubleshooting guidance  
-- ⚙️ Production-aligned DevOps support tool  
+This project turns static DevOps runbooks into a safe, queryable AI troubleshooting assistant.
 
----
+✅ What This Project Solves
 
-## 🧩 Architecture Overview
+🔍 Instant semantic search across DevOps runbook PDFs
 
-User Query
-↓
-FastAPI API (/ask)
-↓
-Vector Similarity Search
-↓
-Relevant Runbook Chunks
-↓
-LLM (Context-Grounded Answer)
-↓
-Structured Troubleshooting Response
+📄 Answers only from approved documentation
 
+🛑 Prevents unsupported or guessed responses
 
+🧩 Step-by-step troubleshooting guidance
 
----
+⚙️ Production-aligned DevOps support tool
 
-## 🛠️ Tech Stack
+🧩 Architecture Overview
 
-- **Backend**: FastAPI  
-- **LLM**: Groq (ChatGroq)  
-- **Framework**: LangChain  
-- **Embeddings**: sentence-transformers/all-MiniLM-L6-v2  
-- **Vector Store**: In-Memory Vector Store  
-- **Document Loader**: PyPDFLoader  
-- **Env Management**: python-dotenv  
+User sends a query
 
----
+FastAPI /ask endpoint receives the request
 
-## 📂 Project Structure
+Vector similarity search over runbook embeddings
 
+Relevant runbook chunks are retrieved
+
+LLM generates a response strictly from retrieved context
+
+Fallback message if the answer is not found
+
+🛠️ Tech Stack
+
+Backend: FastAPI
+
+LLM: Groq (ChatGroq)
+
+Framework: LangChain
+
+Embeddings: sentence-transformers/all-MiniLM-L6-v2
+
+Vector Store: In-memory vector store
+
+Document Loader: PyPDFLoader
+
+Environment Management: python-dotenv
+
+📂 Project Structure
 .
 ├── app.py
 ├── data/
-│ └── devops_troubleshoot.pdf
+│   └── devops_troubleshoot.pdf
 ├── requirements.txt
 ├── .env
 └── README.md
 
+⚙️ How It Works
 
----
+Loads DevOps runbook PDFs at application startup
 
-## ⚙️ How It Works
+Splits documents into manageable chunks
 
-1. Loads DevOps runbook PDFs at application startup  
-2. Splits documents into manageable chunks  
-3. Generates embeddings for semantic search  
-4. Retrieves relevant runbook sections using vector similarity  
-5. LLM generates answers **only from retrieved context**
+Generates embeddings for semantic search
 
----
+Retrieves relevant runbook sections
 
-## 🔐 Safety & Reliability
+Generates answers strictly from retrieved content
 
-This system is designed for production use:
+🔐 Safety & Reliability
 
-- ❌ No external knowledge usage  
-- ❌ No guessing or hallucination  
-- ✅ Strictly context-based answers  
-- ✅ Explicit fallback if answer not found  
+❌ No external knowledge usage
+
+❌ No guessing or unsupported answers
+
+✅ Strict context-based responses
+
+✅ Clear fallback if answer is not in the runbook
 
 Example fallback:
-> *"This issue is not covered in the current runbook."*
 
----
+"This issue is not covered in the current runbook."
 
-## 🔌 API Endpoints
-
-### Health Check
-
-```http
+🔌 API Endpoints
+Health Check
 GET /
-{
-  "status": "running"
-}
 
+
+Response:
+
+{ "status": "running" }
+
+Ask a Question
 POST /ask
+
+
+Request:
+
+{ "query": "server is slow" }
+
+
+Response (example):
+
 {
-  "query": "Kubernetes pod is in CrashLoopBackOff state"
-}
-{
-  "question": "Kubernetes pod is in CrashLoopBackOff state",
-  "answer": "Step-by-step troubleshooting based on runbook context"
+  "question": "server is too slow",
+  "answer": "See Chapter 2: Why Is the Server So Slow?... (runbook-based response)"
 }
 
-🧠 Prompt Engineering
-
-The system uses runbook-style prompt engineering:
+🧠 Prompt Engineering Strategy
 
 Senior DevOps / SRE tone
 
 Step-by-step troubleshooting format
 
-Actionable resolution steps
+Actionable remediation steps
 
-Strict grounding to provided context
+Explicit instruction to avoid external knowledge
 
-This ensures production-grade, reliable responses.
+Fallback when context is missing
 
-git clone https://github.com/your-username/devops-runbook-rag-agent.git
-cd Rag_app
+⚙️ Run Locally
+git clone https://github.com/ashu12658/Devops_runbook__rag_app.git
+cd Devops_runbook__rag_app
 pip install -r requirements.txt
+
+
+Create .env file:
+
 GROQ_API_KEY=your_groq_api_key_here
+HUGGINGFACEHUB_API_TOKEN=your_huggingfacehub_api_key_here
+
+
+Run the server:
 
 uvicorn app:app --reload
-
-Server will run at:http://127.0.0.1:8000
 
 📈 Resume Highlights
 
 Built a DevOps Runbook RAG Agent for production troubleshooting
 
-Implemented zero-hallucination AI using strict context grounding
+Implemented hallucination-controlled AI using strict context grounding
 
-Designed FastAPI backend with PDF ingestion & vector search
+Designed FastAPI backend with PDF ingestion and vector search
 
-Applied prompt engineering for SRE-grade responses
+Deployed a production-ready RAG application on Render
 
 🔮 Future Enhancements
 
@@ -160,18 +174,6 @@ Supervisor agent for incident routing
 
 Docker & Kubernetes deployment
 
-👨‍💻 Ideal Use Cases
-
-DevOps Engineers
-
-SRE Teams
-
-Internal IT Support Tools
-
-Incident Response Systems
-
-Enterprise AI Assistants
-
 🏁 Conclusion
 
-This project demonstrates real-world Agentic AI applied to DevOps, focusing on safety, reliability, and production readiness rather than generic chatbots.
+This project demonstrates practical Agentic AI applied to DevOps, focusing on safety, reliability, and production readiness rather than generic chatbots.
