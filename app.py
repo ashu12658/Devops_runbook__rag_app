@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
-
+import os
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_groq import ChatGroq
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import InMemoryVectorStore
 
 # -------------------------------------------------------------------
@@ -24,8 +24,9 @@ app = FastAPI(
 # LLM & EMBEDDINGS (loaded once)
 # -------------------------------------------------------------------
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+embeddings = HuggingFaceEndpointEmbeddings(
+    repo_id="sentence-transformers/all-MiniLM-L6-v2",
+    huggingfacehub_api_token=os.environ["HUGGINGFACEHUB_API_TOKEN"]
 )
 
 llm = ChatGroq(
