@@ -4,4 +4,4 @@ fastapi>=0.112.0
 uvicorn[standard]>=0.23.0
 groq>=0.36.0
 langchain-groq==1.0.1
-langchain-community=0.4.1
+langchain-community==0.4.1
