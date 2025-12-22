@@ -7,3 +7,4 @@ langchain-groq==1.0.1
 langchain-community==0.4.1
 groq>=0.36.0
 langchain-text-splitters== 1.0.0
+pypdf== 6.4.1
