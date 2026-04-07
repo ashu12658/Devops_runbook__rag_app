@@ -2,11 +2,15 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
 
+from dotenv import load_dotenv
+
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_groq import ChatGroq
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import InMemoryVectorStore
+
+load_dotenv()
 
 # -------------------------------------------------------------------
 # APP
@@ -70,10 +74,10 @@ def load_rag_pipeline():
         vector_store = InMemoryVectorStore(embedding=embeddings)
         vector_store.add_documents(splits)
 
-        print("✅ DevOps RAG vector store initialized")
+        print("DevOps RAG vector store initialized")
 
     except Exception as e:
-        print("❌ RAG init failed:", str(e))
+        print("RAG init failed:", str(e))
         raise e
 
 # -------------------------------------------------------------------
