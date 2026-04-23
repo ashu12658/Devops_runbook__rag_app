@@ -127,15 +127,4 @@ POST http://localhost:8000/ask
 
 If needed, enable CORS in app.py.
 
-📈 Resume Highlights
-Built a DevOps Runbook RAG Agent for production troubleshooting
-Implemented hallucination-controlled AI using strict context grounding
-Designed FastAPI backend with PDF ingestion and vector search
-Integrated React frontend for end-to-end interaction
-Deployed a production-ready RAG application on Render
-🔮 Future Enhancements
-Multi-runbook (multi-PDF) support
-Source citations for answers
-Incident severity-based responses
-Supervisor agent for incident routing
-Docker & Kubernetes deployment
+
